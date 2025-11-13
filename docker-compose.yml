@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  db:
+    container_name: mysql-db
+    image: mysql:oraclelinux9
+    volumes: 
+      - ./mysql-volumes:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+      - MYSQL_DATABASE=${DB_NAME}
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  phpmyadmin:
+    container_name: phpmyadmin-t
+    depends_on:
+      - db
+    image: phpmyadmin:apache
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+
+  # api:
+  #   container_name: admintareas.backend.api
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   build: .
+  #   image: admintareas.backend.api:1.0.2
+  #   ports:
+  #     - 8085:8080
+  #   environment:
+  #     - ConnectionStrings__DefaultConnection=Server=${DB_SERVER};Database=${DB_NAME};User=${DB_USER};Password=${DB_PASS};
