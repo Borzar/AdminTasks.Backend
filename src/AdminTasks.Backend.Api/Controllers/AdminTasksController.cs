@@ -26,7 +26,7 @@ public class AdminTasksController : ControllerBase
         var response = await _mediator.Send(request);
         if (response is null)
         {
-            return NotFound(new JsonResponse { Status = "Failed", Description = "Error making the request (TEST)" });
+            return NotFound(new JsonResponse { Status = "Failed", Description = "Error making the request" });
         }
         return Ok(response);
 
