@@ -27,14 +27,14 @@ services:
     environment:
       - PMA_ARBITRARY=1
 
-  # api:
-  #   container_name: admintareas.backend.api
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy
-  #   build: .
-  #   image: admintareas.backend.api:1.0.2
-  #   ports:
-  #     - 8085:8080
-  #   environment:
-  #     - ConnectionStrings__DefaultConnection=Server=${DB_SERVER};Database=${DB_NAME};User=${DB_USER};Password=${DB_PASS};
+  api:
+    container_name: admintareas.backend.api
+    depends_on:
+      db:
+        condition: service_healthy
+    build: .
+    image: admintareas.backend.api:1.0.2
+    ports:
+      - 8085:8080
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=${DB_SERVER};Database=${DB_NAME};User=${DB_USER};Password=${DB_PASS};
