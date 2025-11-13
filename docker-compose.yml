@@ -28,12 +28,12 @@ services:
       - PMA_ARBITRARY=1
 
   api:
-    container_name: admintareas.backend.api
+    container_name: admintasks.backend.api
     depends_on:
       db:
         condition: service_healthy
     build: .
-    image: admintareas.backend.api:1.0.2
+    image: admintasks.backend.api:0.0.2
     ports:
       - 8085:8080
     environment:
