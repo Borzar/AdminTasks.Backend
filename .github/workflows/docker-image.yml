@@ -15,6 +15,7 @@ jobs:
     steps:
     # Tomar nuestro codigo
     # Test GitHub Action to determine semantic version based on commit messages
+    # Test GitHub Action to determine semantic version based on commit messages
     - name: Checkout Code
       uses: actions/checkout@v4
       with: 
