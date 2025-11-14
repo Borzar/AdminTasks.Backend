@@ -30,25 +30,6 @@ jobs:
         format: "${major}.${minor}.${patch}"
       id: version
 
-    - name: Create & Push Tag
-      if: steps.version.outputs.version != '' && steps.version.outputs.major != '' # Solo si se calculó una nueva versión
-      env:
-        NEW_VERSION: ${{ steps.version.outputs.version }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Usamos el token predeterminado
-      run: |
-        TAG_NAME="v$NEW_VERSION"
-        echo "Creando y empujando tag: $TAG_NAME"
-        
-        # Configurar Git con el usuario/email de GitHub Actions
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-        
-        # Crear el tag
-        git tag $TAG_NAME -a -m "Release $TAG_NAME"
-        
-        # Empujar el tag al repositorio
-        git push origin $TAG_NAME
-
     - name: Docker Login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
@@ -62,6 +43,7 @@ jobs:
       env:
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
+        echo "------ VERSION DEL TAG: $NEW_VERSION"
         docker build -t jadomiz/admintareas.backend.api:$NEW_VERSION .
         docker build -t jadomiz/admintareas.backend.api:latest .
 
