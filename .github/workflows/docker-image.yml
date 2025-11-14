@@ -15,6 +15,7 @@ jobs:
     steps:
     # Tomar nuestro codigo
     # Test GitHub Action to determine semantic version based on commit messages
+    # Test GitHub Action to determine semantic version based on commit messages
     - name: Checkout Code
       uses: actions/checkout@v4
       with: 
@@ -23,9 +24,9 @@ jobs:
     - name: Git Semantic Version
       uses: PaulHatch/semantic-version@v4.0.3
       with:
-        major_pattern: "BREAKING CHANGE|!:"
+        major_pattern: "BREAKING CHANGE:"
         minor_pattern: "feat:"
-        patch_pattern: "fix:|chore:|refactor:|perf:|style:"
+        patch_pattern: "fix:"
         format: "${major}.${minor}.${patch}"
       id: version
 
